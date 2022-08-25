@@ -18,8 +18,8 @@
     <label>@Loc["ConfirmPassword"]</label>
     <InputText type="password" @bind-Value="guest.PasswordConfirmation" />
 
-    <label>@Loc["AccessExpiration"]</label>
-    <InputDate @bind-Value="guest.AccessExpiration" />
+    @*<label>@Loc["AccessExpiration"]</label>*@
+    @*<InputDate @bind-Value="guest.AccessExpiration" />*@
 
     <label>@Loc["AllowedAddresses"] (@Loc["allIfEmpty"])</label>
     <p style="color: #ccc; font-size: small;">@Loc["Example"]: 192.168.1.1,10.0.0.0/24,example.dyndns.org,::1</p>
@@ -46,7 +46,7 @@
         public string PasswordConfirmation { get; set; } = string.Empty;
 
         [Required]
-        public DateTime AccessExpiration { get; set; } = DateTime.UtcNow.AddDays(7);
+        public DateTime AccessExpiration { get; set; } = DateTime.UtcNow.AddDays(365*5);
         public string AllowedAddresses { get; set; } = string.Empty;
     }
 

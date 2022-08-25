@@ -1,3 +1,4 @@
+@using DocumentFormat.OpenXml.InkML
 @using OpenBullet2.Helpers
 @using RuriLib.Models.Configs
 @using System.Globalization
@@ -27,7 +28,10 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column bg-secondary">
-        <li class="nav-item px-3">
+      
+      <AuthorizeView Roles="Admin,Guest">    
+        <Authorized>  
+            <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> @Loc["Home"]
             </NavLink>
@@ -37,11 +41,15 @@
                 <span class="oi oi-pulse" aria-hidden="true"></span> @Loc["Jobs"]
             </NavLink>
         </li>
+        <AuthorizeView Roles="Admin">    
+        <Authorized Context="admin" >  
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="monitor">
                 <span class="oi oi-eye" aria-hidden="true"></span> @Loc["Monitor"]
             </NavLink>
         </li>
+         </Authorized>  
+        </AuthorizeView>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="proxies/groups">
                 <span class="oi oi-shield" aria-hidden="true"></span> @Loc["Proxies"]
@@ -57,6 +65,8 @@
                 <span class="oi oi-bolt" aria-hidden="true"></span> @Loc["Hits"]
             </NavLink>
         </li>
+         <AuthorizeView Roles="Admin">    
+        <Authorized Context="admin2" > 
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="configs">
                 <span class="oi oi-cog" aria-hidden="true"></span> @Loc["Configs"]
@@ -119,7 +129,6 @@
                 </button>
             </li>
         }
-
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="settings/rurilib">
                 <span class="oi oi-wrench" aria-hidden="true"></span> @Loc["RLSettings"]
@@ -145,6 +154,9 @@
                 <span class="oi oi-share" aria-hidden="true"></span> @Loc["Sharing"]
             </NavLink>
         </li>
+         </Authorized>  
+        </AuthorizeView>
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="about">
                 <span class="oi oi-info" aria-hidden="true"></span> @Loc["About"]
@@ -168,6 +180,18 @@
             <a href="https://github.com/openbullet/OpenBullet2/issues"><span class="oi oi-bug"></span></a>
             <span class="version-label ml-2" @onclick="ShowChangelog">@UpdateService.CurrentVersion [@UpdateService.CurrentVersionType]</span>
         </li>
+        </Authorized> 
+      
+    <NotAuthorized Context="admin1" >    
+        <p>Please signed in.</p>    
+    </NotAuthorized>    
+</AuthorizeView> 
+  @if (sidebarExpanded)
+        {
+                    <iframe src="https://discord.com/widget?id=560608538443907073&theme=dark" height="350" width="218" allowtransparency="true" frameborder="0" sandbox="allow-same-origin allow-scripts"></iframe>
+
+        }
+        
     </ul>
 </div>
 
